@@ -1,0 +1,24 @@
+# ninja log v6
+8	80	1728391333286973266	build.ninja	854204a57221cd5c
+5	796	1728391198561105472	CMakeFiles/main.dir/main.cpp.o	b33e03073c83998d
+700	730	1728389554330456590	main	e3f97aa36f9dc8aa
+6	855	1728299085510217136	CMakeFiles/main.dir/openFileDlg.mm.o	2a98f22c3d8ec71f
+5	810	1728391198560672649	CMakeFiles/new_target.dir/common.cpp.o	ffea999d36aa7c9c
+810	834	1728391199366039253	libnew_target.a	a9cca47671b85b73
+6	830	1728391198561602711	CMakeFiles/main.dir/Lab_1_-_Spatii_de_culoare/lab1.cpp.o	f20185e0cce65a3a
+4	766	1728391497618331546	CMakeFiles/main.dir/main.cpp.o	b33e03073c83998d
+3	771	1728391497617786476	CMakeFiles/new_target.dir/common.cpp.o	ffea999d36aa7c9c
+771	789	1728391498385613360	libnew_target.a	a9cca47671b85b73
+4	791	1728391497618463585	CMakeFiles/main.dir/Lab_1_-_Spatii_de_culoare/lab1.cpp.o	f20185e0cce65a3a
+3	683	1728391836098127152	CMakeFiles/new_target.dir/common.cpp.o	ffea999d36aa7c9c
+683	700	1728391836778225793	libnew_target.a	a9cca47671b85b73
+3	778	1728391869869083271	CMakeFiles/main.dir/main.cpp.o	b33e03073c83998d
+4	802	1728391869869202937	CMakeFiles/main.dir/Lab_1_-_Spatii_de_culoare/lab1.cpp.o	f20185e0cce65a3a
+3	693	1728391912908276699	CMakeFiles/new_target.dir/common.cpp.o	ffea999d36aa7c9c
+693	710	1728391913598428654	libnew_target.a	a9cca47671b85b73
+710	742	1728391913615452730	main	e3f97aa36f9dc8aa
+4	791	1728391993541049611	CMakeFiles/main.dir/main.cpp.o	b33e03073c83998d
+4	797	1728391993540489911	CMakeFiles/new_target.dir/common.cpp.o	ffea999d36aa7c9c
+797	816	1728391994333823417	libnew_target.a	a9cca47671b85b73
+4	825	1728391993541294899	CMakeFiles/main.dir/Lab_1_-_Spatii_de_culoare/lab1.cpp.o	f20185e0cce65a3a
+825	860	1728391994361610234	main	e3f97aa36f9dc8aa

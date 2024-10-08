@@ -1,0 +1,4 @@
+/Users/vladbarto/Documents/FACULTATE/AN4/SEM1/IOC/Lab_IOC/cmake-build-debug/CMakeFiles/new_target.dir
+/Users/vladbarto/Documents/FACULTATE/AN4/SEM1/IOC/Lab_IOC/cmake-build-debug/CMakeFiles/main.dir
+/Users/vladbarto/Documents/FACULTATE/AN4/SEM1/IOC/Lab_IOC/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/vladbarto/Documents/FACULTATE/AN4/SEM1/IOC/Lab_IOC/cmake-build-debug/CMakeFiles/rebuild_cache.dir
