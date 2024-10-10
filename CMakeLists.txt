@@ -23,7 +23,13 @@ add_library(new_target common.cpp)
 # Add executable (main.cpp)
 add_executable(main main.cpp
         "Lab 1 - Spatii de culoare/lab1.h"
-        "Lab 1 - Spatii de culoare/lab1.cpp")
+        "Lab 1 - Spatii de culoare/lab1.cpp"
+        "Lab 2 - Clasificarea pixelilor pe baza modelului/lab2.cpp"
+        "Lab 2 - Clasificarea pixelilor pe baza modelului/lab2.h"
+        Functions.h
+        Functions.cpp
+        colorcode.h
+        colorcode.cpp)
 
 # Link OpenCV libraries and your new_target to main
 target_link_libraries(main ${OpenCV_LIBS} new_target)

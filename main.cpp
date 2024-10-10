@@ -2,34 +2,13 @@
 #include <opencv2/opencv.hpp>
 #include "common.h"
 #include "Lab 1 - Spatii de culoare/lab1.h"
+#include "Lab 2 - Clasificarea pixelilor pe baza modelului/lab2.h"
+
 using namespace std;
 using namespace cv;
 
 std::string main_pictures_path = std::string(MAIN_IMAGE_FOLDER_PATH);
 
-int main2() {
-
-    setMouseCallback("Fereastra", MyCallBackFuncHSV);
-    testMouseClick();
-	Mat img = imread("/Users/vladbarto/Documents/FACULTATE/AN4/SEM1/IOC/OpenCVApplication-VS2019_OCV3411_basic_IOM/Images/Hand/04.bmp",
-					IMREAD_GRAYSCALE);
-
-    imshow("input image", img);
-    waitKey(0);
-    // Mat rgb = imread(name_hand_image);
-    // Mat hsv;
-    // Mat channels[3];
-    // cvtColor(rgb, hsv, COLOR_BGR2HSV);
-    // split(hsv, channels);
-
-    // putText()
-    // mat temp = src.clone()
-    //char msg[256]
-    /// sprintf(msg..
-    /// imshow
-    ///
-    return 0;
-}
 void testOpenImage() {
 	std::string temp = main_pictures_path;
 	temp.append("/A1.bmp");
@@ -75,7 +54,7 @@ void testParcurgereSimplaDiblookStyle()
 		waitKey();
 	}
 }
-
+void nop() {;}
 int main()
 {
 	int op;
@@ -98,6 +77,7 @@ int main()
 		printf("14 - Binarizare componenta H, prag arbitrar ales \n");
 		printf("15 - Binarizare componenta H, globala automata \n");
 		printf("16 - list hist \n");
+		printf("21 - Lab 2 \n");
 		printf(" 0 - Exit\n\n");
 		printf("Option: ");
 		scanf("%d",&op);
@@ -144,6 +124,10 @@ int main()
 				setMouseCallback("Fereastra", MyCallBackFuncHSV);
 				testMouseClick();
 				break;
+			case 21:
+				L2_work_Build();
+				break;
+
 		}
 	}
 	while (op!=0);

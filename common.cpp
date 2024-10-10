@@ -114,7 +114,6 @@ void MyCallBackFuncHSV(int event, int x, int y, int flags, void* param)
             (int)(hsv).at<Vec3b>(y, x)[1],
             (int)(hsv).at<Vec3b>(y, x)[2]);
         putText(temp, msg, Point(5, 20), FONT_HERSHEY_SIMPLEX, 0.5, CV_RGB(0, 255, 0), 1, 8);
-        std::cout<<msg<<"\n";
         imshow("rgb", temp);
     }
 }
