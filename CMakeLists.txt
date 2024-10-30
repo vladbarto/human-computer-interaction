@@ -33,7 +33,9 @@ add_executable(main main.cpp
         "Lab 3 - Segmentarea bazata pe regiuni/lab3.cpp"
         "Lab 3 - Segmentarea bazata pe regiuni/lab3.h"
         "Lab 4 - Detectia colturilor/lab4.cpp"
-        "Lab 4 - Detectia colturilor/lab4.h")
+        "Lab 4 - Detectia colturilor/lab4.h"
+        "Lab 5 - Segmentarea obiectelor in miscare prin background substraction/lab5.cpp"
+        "Lab 5 - Segmentarea obiectelor in miscare prin background substraction/lab5.h")
 
 # Link OpenCV libraries and your new_target to main
 target_link_libraries(main ${OpenCV_LIBS} new_target)

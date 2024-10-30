@@ -6,6 +6,8 @@
 #include "Lab 2 - Clasificarea pixelilor pe baza modelului/lab2.h"
 #include "Lab 3 - Segmentarea bazata pe regiuni/lab3.h"
 #include "Lab 4 - Detectia colturilor/lab4.h"
+#include "Lab 5 - Segmentarea obiectelor in miscare prin background substraction/lab5.h"
+
 using namespace std;
 using namespace cv;
 
@@ -119,8 +121,9 @@ int main()
 		printf("11 - My BGR to HSV + histograme \n");
 		printf("14 - Binarizare componenta H, prag arbitrar ales \n");
 		printf("15 - Binarizare componenta H, globala automata \n");
-		printf("16 - list hist \n\n");
-		printf("21 - Lab 2 \n\n");
+		printf("16 - list hist \n");
+		printf("-------lab2-------\n");
+		printf("21 - Lab 2 \n");
 		printf("-------lab3-------\n");
 		printf("31 - Lab 3 - Region Growing Color (Hue) \n");
 		printf("32 - Lab 3 - Region Growing Grayscale (Value) \n");
@@ -128,6 +131,9 @@ int main()
 		printf("41 - Lab 4 - goodFeaturesToTrack() \n");
 		printf("44 - Lab 4 - call cornerHarris_demo() \n");
 		printf("45 - Lab 4 - video sequence corner detection (function from cmd 41) \n");
+		printf("-------lab5-------\n");
+		printf("51 - Lab 1 - Segmentarea obiectelor in miscare, background substraction \n");
+		printf("-------lab5-------\n");
 		printf(" 0 - Exit\n\n");
 		printf("Option: ");
 		scanf("%d",&op);
@@ -191,6 +197,9 @@ int main()
 				break;
 			case 45:
 				videoSequenceCornerDetection();
+				break;
+			case 51:
+				lab5_background_substraction();
 				break;
 		}
 	}
