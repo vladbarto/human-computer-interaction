@@ -5,7 +5,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#define MAIN_IMAGE_FOLDER_PATH "/Users/vladbarto/Documents/FACULTATE/AN4/SEM1/IOC/Lab_IOC/Images/Hand/"
+//#define MAIN_IMAGE_FOLDER_PATH "/Users/vladbarto/Documents/FACULTATE/AN4/SEM1/IOC/Lab_IOC/Images/Hand/"
+#define MAIN_IMAGE_FOLDER_PATH "/Users/vladbarto/Documents/FACULTATE/AN4/SEM1/IOC/Lab_IOC/Lab 4 - Detectia colturilor/Img_corners/"
 #define MAX_PATH 1024
 #define BLACK 0
 #define WHITE 255

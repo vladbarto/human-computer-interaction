@@ -1,9 +1,11 @@
 #include <iostream>
+#include <fstream>
 #include <opencv2/opencv.hpp>
 #include "common.h"
 #include "Lab 1 - Spatii de culoare/lab1.h"
 #include "Lab 2 - Clasificarea pixelilor pe baza modelului/lab2.h"
 #include "Lab 3 - Segmentarea bazata pe regiuni/lab3.h"
+#include "Lab 4 - Detectia colturilor/lab4.h"
 using namespace std;
 using namespace cv;
 
@@ -54,7 +56,46 @@ void testParcurgereSimplaDiblookStyle()
 		waitKey();
 	}
 }
+
+void testVideoSequence()
+{
+	//VideoCapture cap("./Videos/rubic.avi"); // off-line video from file
+	VideoCapture cap(0);	// live video from web cam
+	if (!cap.isOpened()) {
+		printf("Cannot open video capture device.\n");
+		waitKey();
+		return;
+	}
+
+	Mat edges;
+	Mat frame;
+	char c;
+
+	while (cap.read(frame))
+	{
+		Mat grayFrame;
+		cvtColor(frame, grayFrame, COLOR_BGR2GRAY);
+		Canny(grayFrame,edges,40,100,3);
+		imshow("source", frame);
+		imshow("gray", grayFrame);
+		imshow("edges", edges);
+		c = waitKey();  // waits a key press to advance to the next frame
+		if (c == 27) {
+			// press ESC to exit
+			printf("ESC pressed - capture finished\n");
+			break;  //ESC pressed
+		};
+	}
+}
+
 void nop() {;}
+
+
+
+
+
+
+
 
 
 int main()
@@ -80,8 +121,13 @@ int main()
 		printf("15 - Binarizare componenta H, globala automata \n");
 		printf("16 - list hist \n\n");
 		printf("21 - Lab 2 \n\n");
+		printf("-------lab3-------\n");
 		printf("31 - Lab 3 - Region Growing Color (Hue) \n");
-		printf("32 - Lab 3 - Region Growing Grayscale (Value) \n\n");
+		printf("32 - Lab 3 - Region Growing Grayscale (Value) \n");
+		printf("-------lab4-------\n");
+		printf("41 - Lab 4 - goodFeaturesToTrack() \n");
+		printf("44 - Lab 4 - call cornerHarris_demo() \n");
+		printf("45 - Lab 4 - video sequence corner detection (function from cmd 41) \n");
 		printf(" 0 - Exit\n\n");
 		printf("Option: ");
 		scanf("%d",&op);
@@ -106,14 +152,14 @@ int main()
 		// 	case 6:
 		// 		testCanny();
 		// 		break;
-		// 	case 7:
-		// 		testVideoSequence();
-		// 		break;
+			case 7:
+				testVideoSequence();
+				break;
 		// 	case 8:
 		// 		testSnap();
 		// 		break;
-		// 	case 9:
-		// 		testMouseClick();
+			// case 9:
+				// testMouseClick();
 		// 		break;
 			case 11:
 				testMyBGR2HSV();
@@ -136,6 +182,15 @@ int main()
 				break;
 			case 32:
 				L3_ColorModel_Build_Grayscale();
+				break;
+			case 41:
+				cornerDetectionDemo();
+				break;
+			case 44:
+				callCornerHarrisDemo();
+				break;
+			case 45:
+				videoSequenceCornerDetection();
 				break;
 		}
 	}
