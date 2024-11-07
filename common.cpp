@@ -3,7 +3,6 @@
 //
 
 #include "common.h"
-#include <iostream>
 using namespace std;
 
 void showHistogram(const string& name, int* hist, const int hist_cols, const int hist_height) {
@@ -80,6 +79,25 @@ std::string openFileDlg() {
     }
 }
 
+int openFolderDlg(char *folderName) {
+    std::cout << "Enter the path of the folder you want to select: ";
+    // std::cin.getline(folderName, MAX_PATH);
+    scanf("%s", folderName);
+
+    // Check if the entered path is a directory
+    struct stat info;
+    if (stat(folderName, &info) != 0) {
+        std::cerr << "Error: Cannot access " << folderName << std::endl;
+        return 0;
+    } else if (!(info.st_mode & S_IFDIR)) {
+        std::cerr << "Error: " << folderName << " is not a directory." << std::endl;
+        return 0;
+    }
+
+    // Success
+    return 1;
+}
+
 void computeHist(Mat src, int hist[]) {
     for(int i = 0; i < src.rows; i++) {
         for(int j = 0; j < src.cols; j++) {
@@ -116,4 +134,95 @@ void MyCallBackFuncHSV(int event, int x, int y, int flags, void* param)
         putText(temp, msg, Point(5, 20), FONT_HERSHEY_SIMPLEX, 0.5, CV_RGB(0, 255, 0), 1, 8);
         imshow("rgb", temp);
     }
+}
+
+//---------------- Belonging to class FileGetter ------------------
+
+FileGetter::FileGetter(const char* folderin, const char* extin)
+    : dir(nullptr), entry(nullptr), first(true), hasFiles(false) {
+    // Initialize folder path and extension
+    strncpy(folder, folderin, MAX_PATH - 1);
+    folder[MAX_PATH - 1] = '\0'; // Ensure null termination
+
+    // Set extension, default to "*" if none specified
+    if (extin) {
+        strncpy(ext, extin, sizeof(ext) - 1);
+        ext[sizeof(ext) - 1] = '\0';
+    } else {
+        strcpy(ext, "*");
+    }
+
+    // Open directory
+    dir = opendir(folder);
+    if (dir) {
+        // Move to the first valid file
+        while ((entry = readdir(dir)) != nullptr) {
+            if (entry->d_type == DT_REG && matchesExtension(entry->d_name)) {
+                hasFiles = true;
+                break;
+            }
+        }
+    }
+}
+
+FileGetter::~FileGetter() {
+    if (dir) closedir(dir);
+}
+
+// Helper function to check if a filename matches the specified extension
+bool FileGetter::matchesExtension(const char* filename) {
+    if (strcmp(ext, "*") == 0) return true; // Match any extension
+    const char* dot = strrchr(filename, '.');
+    return (dot && strcmp(dot + 1, ext) == 0);
+}
+
+// Gets the next file name only (no path)
+int FileGetter::getNextFile(char* fname) {
+    if (!hasFiles) return 0;
+
+    if (first) {
+        // Copy the initial file name on the first call
+        strncpy(fname, entry->d_name, MAX_PATH - 1);
+        fname[MAX_PATH - 1] = '\0';
+        first = false;
+        return 1;
+    } else {
+        // Find the next file
+        while ((entry = readdir(dir)) != nullptr) {
+            if (entry->d_type == DT_REG && matchesExtension(entry->d_name)) {
+                strncpy(fname, entry->d_name, MAX_PATH - 1);
+                fname[MAX_PATH - 1] = '\0';
+                return 1;
+            }
+        }
+        hasFiles = false;
+        return 0;
+    }
+}
+
+// Gets the next file name with absolute path
+int FileGetter::getNextAbsFile(char* fname) {
+    if (!hasFiles) return 0;
+
+    if (first) {
+        snprintf(fname, MAX_PATH, "%s/%s", folder, entry->d_name);
+        std::cout<<fname<<endl;
+        first = false;
+        return 1;
+    } else {
+        while ((entry = readdir(dir)) != nullptr) {
+            if (entry->d_type == DT_REG && matchesExtension(entry->d_name)) {
+                snprintf(fname, MAX_PATH, "%s/%s", folder, entry->d_name);
+                return 1;
+            }
+        }
+        hasFiles = false;
+        return 0;
+    }
+}
+
+// Returns the current file name found, without path
+const char* FileGetter::getFoundFileName() {
+    if (!hasFiles) return nullptr;
+    return entry->d_name;
 }

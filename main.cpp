@@ -7,6 +7,7 @@
 #include "Lab 3 - Segmentarea bazata pe regiuni/lab3.h"
 #include "Lab 4 - Detectia colturilor/lab4.h"
 #include "Lab 5 - Segmentarea obiectelor in miscare prin background substraction/lab5.h"
+#include "Lab_6_Estimarea_fluxului_optic/lab6.h"
 
 using namespace std;
 using namespace cv;
@@ -90,13 +91,26 @@ void testVideoSequence()
 	}
 }
 
+void testOpenImagesFld()
+{
+	char folderName[MAX_PATH];
+	if (openFolderDlg(folderName)==0)
+		return;
+	char fname[MAX_PATH];
+	FileGetter fg(folderName,"bmp");
+	// printf("gets here");
+
+	while(fg.getNextAbsFile(fname))
+	{
+		Mat src;
+		src = imread(fname);
+		imshow(fg.getFoundFileName(),src);
+		if (waitKey()==27) //ESC pressed
+			break;
+	}
+}
+
 void nop() {;}
-
-
-
-
-
-
 
 
 
@@ -132,8 +146,10 @@ int main()
 		printf("44 - Lab 4 - call cornerHarris_demo() \n");
 		printf("45 - Lab 4 - video sequence corner detection (function from cmd 41) \n");
 		printf("-------lab5-------\n");
-		printf("51 - Lab 1 - Segmentarea obiectelor in miscare, background substraction \n");
-		printf("-------lab5-------\n");
+		printf("51 - Lab 5 - Segmentarea obiectelor in miscare, background substraction \n");
+		printf("-------lab6-------\n");
+		printf("61 - Lab 6 -  \n");
+
 		printf(" 0 - Exit\n\n");
 		printf("Option: ");
 		scanf("%d",&op);
@@ -200,6 +216,9 @@ int main()
 				break;
 			case 51:
 				lab5_background_substraction();
+				break;
+			case 61:
+				testOpenImagesFld();
 				break;
 		}
 	}

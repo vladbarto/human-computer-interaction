@@ -64,7 +64,6 @@ void lab5_background_substraction() {
                     addWeighted(gray, alpha, backgnd, 1.0-alpha, 0, backgnd);
                     break;
                 default:
-                    //method3();
                     break;
             }
             //------ SABLON DE PRELUCRARI PT. METODELE BACKGROUND SUBTRACTION -------
@@ -90,11 +89,11 @@ void lab5_background_substraction() {
             dilate( dst, dst, element, Point(-1,-1), 2 );
 
             // Get the current time again and compute the time difference [s]
-            t = ((double)getTickCount() - t) / getTickFrequency();
+            t = (static_cast<double>(getTickCount()) - t) / getTickFrequency();
             // Print (in the console window) the processing time in [ms]
             printf("%d - %.3f [ms]\n", frameNum, t*1000);
             namedWindow( "sursa" );
-            createTrackbar( "Threshold: ", "sursa", &Th, 100, NULL );
+            createTrackbar( "Threshold: ", "sursa", &Th, 100, nullptr);
             // Afiseaza imaginea sursa si destinatie
             imshow( "sursa", frame); // show source
             imshow("diff", diff); // sa vedem si diferenta
