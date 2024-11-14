@@ -1,4 +1,3 @@
-#include <iostream>
 #include <fstream>
 #include <opencv2/opencv.hpp>
 #include "common.h"
@@ -8,6 +7,7 @@
 #include "Lab 4 - Detectia colturilor/lab4.h"
 #include "Lab 5 - Segmentarea obiectelor in miscare prin background substraction/lab5.h"
 #include "Lab_6_Estimarea_fluxului_optic/lab6.h"
+#include "Lab_7_Estimarea_fluxului_optic_dens/lab7.h"
 
 using namespace std;
 using namespace cv;
@@ -116,10 +116,12 @@ void nop() {;}
 
 int main()
 {
+	makeColorwheel(); // initaializes the colorwhel for the colorcode module
+	make_HSI2RGB_LUT();
 	int op;
 	do
 	{
-		system("clear");
+		//system("clear");
 		destroyAllWindows();
 		printf("Menu:\n");
 		printf(" 1 - Open image\n");
@@ -149,7 +151,8 @@ int main()
 		printf("51 - Lab 5 - Segmentarea obiectelor in miscare, background substraction \n");
 		printf("-------lab6-------\n");
 		printf("61 - Lab 6 -  \n");
-
+		printf("-------lab7-------\n");
+		printf("71 - Lab 7 -  \n");
 		printf(" 0 - Exit\n\n");
 		printf("Option: ");
 		scanf("%d",&op);
@@ -218,7 +221,10 @@ int main()
 				lab5_background_substraction();
 				break;
 			case 61:
-				testOpenImagesFld();
+				testOpticalFlow2();
+				break;
+			case 71:
+				farnebackOpticalFlowDemo();
 				break;
 		}
 	}

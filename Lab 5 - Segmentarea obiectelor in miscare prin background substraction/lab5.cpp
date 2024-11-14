@@ -19,7 +19,7 @@ void image_binarization() {
 
 void lab5_background_substraction() {
     VideoCapture cap(
-0//"/Users/vladbarto/Documents/FACULTATE/AN4/SEM1/IOC/Lab_IOC/Videos/laboratory.AVI"
+"/Users/vladbarto/Documents/FACULTATE/AN4/SEM1/IOC/Lab_IOC/Videos/laboratory.AVI"
 );
     for(;;) {
 

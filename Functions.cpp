@@ -439,4 +439,3 @@ void Labeling(const string& name, const Mat& src, bool output_format)
 }
 
 
-

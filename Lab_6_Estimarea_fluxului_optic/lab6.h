@@ -7,13 +7,11 @@
 
 #include <iostream>
 #include "../common.h"
+#include "../Functions.h"
 
-// Mat crnt; // current frame red as grayscale (crnt)
-// Mat prev; // previous frame (grayscale)
-// Mat flow; // flow - matrix containing the optical flow vectors/pixel
-// char folderName[MAX_PATH];
-// char fname[MAX_PATH];
-// if (openFolderDlg(folderName) == 0)
-//     return;
-// FileGetter fg(folderName, "bmp");
+#define OPTICAL_FLOW_METHOD 1 // possible values {1, 2}
+#define LAMBDA 10
+#define N_ZERO 8
+void testOpticalFlow();
+void testOpticalFlow2();
 #endif //LAB6_H

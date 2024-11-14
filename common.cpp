@@ -138,11 +138,18 @@ void MyCallBackFuncHSV(int event, int x, int y, int flags, void* param)
 
 //---------------- Belonging to class FileGetter ------------------
 
+#include <algorithm>
+#include <cstring>
+#include <dirent.h>
+#include <string>
+#include <vector>
+#include <cctype>
+
+
 FileGetter::FileGetter(const char* folderin, const char* extin)
-    : dir(nullptr), entry(nullptr), first(true), hasFiles(false) {
-    // Initialize folder path and extension
+    : currentIndex(0), hasFiles(false) {
     strncpy(folder, folderin, MAX_PATH - 1);
-    folder[MAX_PATH - 1] = '\0'; // Ensure null termination
+    folder[MAX_PATH - 1] = '\0';  // Ensure null termination
 
     // Set extension, default to "*" if none specified
     if (extin) {
@@ -152,77 +159,73 @@ FileGetter::FileGetter(const char* folderin, const char* extin)
         strcpy(ext, "*");
     }
 
-    // Open directory
-    dir = opendir(folder);
+    // Open directory and gather filenames
+    DIR* dir = opendir(folder);
     if (dir) {
-        // Move to the first valid file
+        struct dirent* entry;
         while ((entry = readdir(dir)) != nullptr) {
             if (entry->d_type == DT_REG && matchesExtension(entry->d_name)) {
-                hasFiles = true;
-                break;
+                files.emplace_back(entry->d_name);
             }
         }
+        closedir(dir);
+
+        // Sort filenames with natural ordering
+        std::sort(files.begin(), files.end(), naturalCompare);
+        hasFiles = !files.empty();
     }
 }
 
-FileGetter::~FileGetter() {
-    if (dir) closedir(dir);
-}
+FileGetter::~FileGetter() {}
 
 // Helper function to check if a filename matches the specified extension
 bool FileGetter::matchesExtension(const char* filename) {
-    if (strcmp(ext, "*") == 0) return true; // Match any extension
+    if (strcmp(ext, "*") == 0) return true;  // Match any extension
     const char* dot = strrchr(filename, '.');
     return (dot && strcmp(dot + 1, ext) == 0);
 }
 
+// Natural comparator for sorting filenames with numeric order
+bool FileGetter::naturalCompare(const std::string& a, const std::string& b) {
+    size_t i = 0, j = 0;
+    while (i < a.size() && j < b.size()) {
+        if (std::isdigit(a[i]) && std::isdigit(b[j])) {
+            // Extract numbers and compare as integers
+            size_t startA = i, startB = j;
+            while (i < a.size() && std::isdigit(a[i])) i++;
+            while (j < b.size() && std::isdigit(b[j])) j++;
+            int numA = std::stoi(a.substr(startA, i - startA));
+            int numB = std::stoi(b.substr(startB, j - startB));
+            if (numA != numB) return numA < numB;
+        } else {
+            // Compare characters if not both digits
+            if (a[i] != b[j]) return a[i] < b[j];
+            i++;
+            j++;
+        }
+    }
+    return a.size() < b.size();
+}
+
 // Gets the next file name only (no path)
 int FileGetter::getNextFile(char* fname) {
-    if (!hasFiles) return 0;
-
-    if (first) {
-        // Copy the initial file name on the first call
-        strncpy(fname, entry->d_name, MAX_PATH - 1);
-        fname[MAX_PATH - 1] = '\0';
-        first = false;
-        return 1;
-    } else {
-        // Find the next file
-        while ((entry = readdir(dir)) != nullptr) {
-            if (entry->d_type == DT_REG && matchesExtension(entry->d_name)) {
-                strncpy(fname, entry->d_name, MAX_PATH - 1);
-                fname[MAX_PATH - 1] = '\0';
-                return 1;
-            }
-        }
-        hasFiles = false;
-        return 0;
-    }
+    if (!hasFiles || currentIndex >= files.size()) return 0;
+    strncpy(fname, files[currentIndex].c_str(), MAX_PATH - 1);
+    fname[MAX_PATH - 1] = '\0';
+    currentIndex++;
+    return 1;
 }
 
 // Gets the next file name with absolute path
 int FileGetter::getNextAbsFile(char* fname) {
-    if (!hasFiles) return 0;
-
-    if (first) {
-        snprintf(fname, MAX_PATH, "%s/%s", folder, entry->d_name);
-        std::cout<<fname<<endl;
-        first = false;
-        return 1;
-    } else {
-        while ((entry = readdir(dir)) != nullptr) {
-            if (entry->d_type == DT_REG && matchesExtension(entry->d_name)) {
-                snprintf(fname, MAX_PATH, "%s/%s", folder, entry->d_name);
-                return 1;
-            }
-        }
-        hasFiles = false;
-        return 0;
-    }
+    if (!hasFiles || currentIndex >= files.size()) return 0;
+    snprintf(fname, MAX_PATH, "%s/%s", folder, files[currentIndex].c_str());
+    currentIndex++;
+    return 1;
 }
 
 // Returns the current file name found, without path
 const char* FileGetter::getFoundFileName() {
-    if (!hasFiles) return nullptr;
-    return entry->d_name;
+    if (!hasFiles || currentIndex >= files.size()) return nullptr;
+    return files[currentIndex - 1].c_str();
 }

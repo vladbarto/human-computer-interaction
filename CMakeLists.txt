@@ -37,7 +37,9 @@ add_executable(main main.cpp
         "Lab 5 - Segmentarea obiectelor in miscare prin background substraction/lab5.cpp"
         "Lab 5 - Segmentarea obiectelor in miscare prin background substraction/lab5.h"
         "Lab_6_Estimarea_fluxului_optic/lab6.cpp"
-        "Lab_6_Estimarea_fluxului_optic/lab6.h")
+        "Lab_6_Estimarea_fluxului_optic/lab6.h"
+        Lab_7_Estimarea_fluxului_optic_dens/lab7.cpp
+        Lab_7_Estimarea_fluxului_optic_dens/lab7.h)
 
 # Link OpenCV libraries and your new_target to main
 target_link_libraries(main ${OpenCV_LIBS} new_target)

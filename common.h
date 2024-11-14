@@ -27,26 +27,46 @@
 
 using namespace cv;
 
+// class FileGetter {
+// private:
+//     char folder[MAX_PATH];
+//     char ext[10];
+//     DIR* dir;
+//     struct dirent* entry;
+//     bool first;
+//     bool hasFiles;
+//     std::vector<std::string> files;
+//     size_t currentIndex;
+//
+//     bool matchesExtension(const char* filename);
+//     static bool naturalCompare(const std::string& a, const std::string& b);
+//
+// public:
+//     FileGetter(const char* folderin, const char* extin = "*");
+//     ~FileGetter();
+//
+//     int getNextFile(char* fname);
+//     int getNextAbsFile(char* fname);
+//     const char* getFoundFileName();
+// };
 class FileGetter {
-private:
-    char folder[MAX_PATH];
-    char ext[10];
-    DIR* dir;
-    struct dirent* entry;
-    bool first;
-    bool hasFiles;
-
-    bool matchesExtension(const char* filename);
-
 public:
     FileGetter(const char* folderin, const char* extin = "*");
     ~FileGetter();
-
     int getNextFile(char* fname);
     int getNextAbsFile(char* fname);
     const char* getFoundFileName();
-};
 
+private:
+    std::vector<std::string> files;
+    size_t currentIndex;
+    char folder[MAX_PATH];
+    char ext[10];  // Adjust size if needed
+    bool hasFiles;
+
+    bool matchesExtension(const char* filename);
+    static bool naturalCompare(const std::string& a, const std::string& b);
+};
 
 //extern Mat global_rgb;
 void showHistogram(const std::string& name, int* hist, const int hist_cols, const int hist_height);
