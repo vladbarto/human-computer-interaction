@@ -47,66 +47,84 @@ void faceDetectandDisplay_Images(const string& window_name, Mat frame, int minFa
         Point p2(
             faces[i].x + faces[i].width,
             faces[i].y + faces[i].height);
-
+        rectangle(frame, p1, p2, Scalar(255, 0, 255), 2);
         if(!SIMPLIFIED) {
             // draw circle around the face
-        // ellipse( frame, center, Size(faces[i].width*0.5, faces[i].height*0.5), 0, 0,
-        // 360, Scalar(255, 0, 255), 4, 8, 0 );
-        rectangle(frame, p1, p2, Scalar(255, 0, 255), 2);
-        Mat faceROI = frame_gray( faces[i] );
-        std::vector<Rect> eyes;
+            // ellipse( frame, center, Size(faces[i].width*0.5, faces[i].height*0.5), 0, 0,
+            // 360, Scalar(255, 0, 255), 4, 8, 0 );
 
-        //-- In each face (rectangular ROI), detect the eyes
-        eyes_cascade.detectMultiScale( faceROI, eyes, 1.1, 2, 0, Size(minEyeSize, minEyeSize) );
+            Mat faceROI = frame_gray( faces[i] );
+                // Rect eyes_rect;
+                // eyes_rect.x = faces[i].x;
+                // eyes_rect.y = faces[i].y + 0.2*faces[i].height;
+                // eyes_rect.width = faces[i].width;
+                // eyes_rect.height = 0.55*faces[i].height;
+                // Mat faceROI = frame_gray( eyes_rect );
+            std::vector<Rect> eyes;
 
-        for(int j = 0; j < eyes.size(); j++)
-        {
-            // get the center of the eye
-            // atentie la modul in care se calculeaza pozitia absoluta a centrului ochiului
-            // relativa la coltul stanga-sus al imaginii:
-            Point center(
-                faces[i].x + eyes[j].x + eyes[j].width*0.5,
-                faces[i].y + eyes[j].y + eyes[j].height*0.5);
+            //-- In each face (rectangular ROI), detect the eyes
+            eyes_cascade.detectMultiScale( faceROI, eyes, 1.1, 2, 0, Size(minEyeSize, minEyeSize) );
 
-            int radius = cvRound( (eyes[j].width + eyes[j].height)*0.25 );
+            for(int j = 0; j < eyes.size(); j++)
+            {
+                // get the center of the eye
+                // atentie la modul in care se calculeaza pozitia absoluta a centrului ochiului
+                // relativa la coltul stanga-sus al imaginii:
+                Point center(
+                    faces[i].x + eyes[j].x + eyes[j].width*0.5,
+                    faces[i].y + eyes[j].y + eyes[j].height*0.5);
 
-            // draw circle around the eye
-            circle( frame, center, radius, Scalar(255, 0, 0), 2, 8, 0 );
-        }
+                int radius = cvRound( (eyes[j].width + eyes[j].height)*0.25 );
 
-        // NOSE
-        std::vector<Rect> noses;
-        //-- In each face (rectangular ROI), detect the nose
-        nose_cascade.detectMultiScale(faceROI, noses, 1.1, 2, 0, Size(minNoseSize, minNoseSize));
+                // draw circle around the eye
+                circle( frame, center, radius, Scalar(255, 0, 0), 2, 8, 0 );
+            }
 
-        for(int j = 0; j < noses.size(); j++) {
-            Point p1(
-                faces[i].x + noses[j].x,
-                faces[i].y + noses[j].y);
-            Point p2(
-                faces[i].x + noses[j].x + noses[j].width,
-                faces[i].y + noses[j].y + noses[j].height);
+            // NOSE
+                // Rect nose_rect;
+                // nose_rect.x = faces[i].x;
+                // nose_rect.y = faces[i].y + 0.4*faces[i].height;
+                // nose_rect.width = faces[i]. width;
+                // nose_rect.height = 0.75*faces[i].height;
+                // faceROI = frame_gray(nose_rect);
+            std::vector<Rect> noses;
+            //-- In each face (rectangular ROI), detect the nose
+            nose_cascade.detectMultiScale(faceROI, noses, 1.1, 2, 0, Size(minNoseSize, minNoseSize));
 
-            // draw rectangle around the nose
-            rectangle(frame, p1, p2, Scalar(0, 255, 0));
-        }
+            for(int j = 0; j < noses.size(); j++) {
+                Point p1(
+                    faces[i].x + noses[j].x,
+                    faces[i].y + noses[j].y);
+                Point p2(
+                    faces[i].x + noses[j].x + noses[j].width,
+                    faces[i].y + noses[j].y + noses[j].height);
 
-        // MOUTH
-        std::vector<Rect> mouths;
-        //-- In each face (rectangular ROI), detect the nose
-        mouth_cascade.detectMultiScale(faceROI, mouths, 1.1, 2, 0, Size(minMouthSize, minMouthSize));
+                // draw rectangle around the nose
+                rectangle(frame, p1, p2, Scalar(0, 255, 0));
+            }
 
-        for(int j = 0; j < mouths.size(); j++) {
-            Point p1(
-                faces[i].x + mouths[j].x,
-                faces[i].y + mouths[j].y);
-            Point p2(
-                faces[i].x + mouths[j].x + mouths[j].width,
-                faces[i].y + mouths[j].y + mouths[j].height);
+            // MOUTH
+                // Rect mouth_rect;
+                // mouth_rect.x = faces[i].x;
+                // mouth_rect.y = faces[i].y + 0.7*faces[i].height;
+                // mouth_rect.width = faces[i]. width;
+                // mouth_rect.height = 0.99*faces[i].height;
+                // faceROI = frame_gray(mouth_rect);
+            std::vector<Rect> mouths;
+            //-- In each face (rectangular ROI), detect the nose
+            mouth_cascade.detectMultiScale(faceROI, mouths, 1.1, 2, 0, Size(minMouthSize, minMouthSize));
 
-            // draw rectangle around the nose
-            rectangle(frame, p1, p2, Scalar(0, 0, 255));
-        }
+            for(int j = 0; j < mouths.size(); j++) {
+                Point p1(
+                    faces[i].x + mouths[j].x,
+                    faces[i].y + mouths[j].y);
+                Point p2(
+                    faces[i].x + mouths[j].x + mouths[j].width,
+                    faces[i].y + mouths[j].y + mouths[j].height);
+
+                // draw rectangle around the nose
+                rectangle(frame, p1, p2, Scalar(0, 0, 255));
+            }
 
         }
 
@@ -128,7 +146,7 @@ void testFaceDetectAndDisplay_Images() {
     faceDetectandDisplay_Images("Dst", src, minFaceSize, minEyeSize, false);
 }
 
-void testFaceDetectAndDisplay_Video() {
+void testFaceDetectAndDisplay_Video_Haar() {
     init();
     //VideoCapture cap("./Videos/rubic.avi"); // off-line video from file
     VideoCapture cap(0);	// live video from web cam

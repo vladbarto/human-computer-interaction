@@ -21,7 +21,7 @@ static int minNoseSize = minFaceSize / 5;
 static int minMouthSize = minFaceSize / 4;
 
 void testFaceDetectAndDisplay_Images();
-void testFaceDetectAndDisplay_Video();
+void testFaceDetectAndDisplay_Video_Haar();
 void testFaceDetectAndDisplay_Video_LBP();
 
 #endif //LAB8_H

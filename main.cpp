@@ -241,7 +241,7 @@ int main()
 				testFaceDetectAndDisplay_Images();
 				break;
 			case 82:
-				testFaceDetectAndDisplay_Video();
+				testFaceDetectAndDisplay_Video_Haar();
 				break;
 			case 83:
 				testFaceDetectAndDisplay_Video_LBP();
