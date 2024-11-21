@@ -92,6 +92,7 @@ void lab5_background_substraction() {
             t = (static_cast<double>(getTickCount()) - t) / getTickFrequency();
             // Print (in the console window) the processing time in [ms]
             printf("%d - %.3f [ms]\n", frameNum, t*1000);
+
             namedWindow( "sursa" );
             createTrackbar( "Threshold: ", "sursa", &Th, 100, nullptr);
             // Afiseaza imaginea sursa si destinatie

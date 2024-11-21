@@ -39,7 +39,9 @@ add_executable(main main.cpp
         "Lab_6_Estimarea_fluxului_optic/lab6.cpp"
         "Lab_6_Estimarea_fluxului_optic/lab6.h"
         Lab_7_Estimarea_fluxului_optic_dens/lab7.cpp
-        Lab_7_Estimarea_fluxului_optic_dens/lab7.h)
+        Lab_7_Estimarea_fluxului_optic_dens/lab7.h
+        Lab_8_Faces/lab8.cpp
+        Lab_8_Faces/lab8.h)
 
 # Link OpenCV libraries and your new_target to main
 target_link_libraries(main ${OpenCV_LIBS} new_target)

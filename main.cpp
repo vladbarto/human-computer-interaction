@@ -8,6 +8,7 @@
 #include "Lab 5 - Segmentarea obiectelor in miscare prin background substraction/lab5.h"
 #include "Lab_6_Estimarea_fluxului_optic/lab6.h"
 #include "Lab_7_Estimarea_fluxului_optic_dens/lab7.h"
+#include "Lab_8_Faces/lab8.h"
 
 using namespace std;
 using namespace cv;
@@ -153,6 +154,10 @@ int main()
 		printf("61 - Lab 6 -  \n");
 		printf("-------lab7-------\n");
 		printf("71 - Lab 7 -  \n");
+		printf("-------lab8-------\n");
+		printf("81 - Lab 8 - Detectia fețelor pe imagini \n");
+		printf("82 - Lab 8 - Detectia fețelor pe video (haar) \n");
+		printf("83 - Lab 8 - Detectia fețelor pe video (lbp) \n");
 		printf(" 0 - Exit\n\n");
 		printf("Option: ");
 		scanf("%d",&op);
@@ -202,12 +207,14 @@ int main()
 			case 21:
 				L2_work_Build();
 				break;
+
 			case 31:
 				L3_ColorModel_Build_Color();
 				break;
 			case 32:
 				L3_ColorModel_Build_Grayscale();
 				break;
+
 			case 41:
 				cornerDetectionDemo();
 				break;
@@ -217,14 +224,27 @@ int main()
 			case 45:
 				videoSequenceCornerDetection();
 				break;
+
 			case 51:
 				lab5_background_substraction();
 				break;
+
 			case 61:
 				testOpticalFlow2();
 				break;
+
 			case 71:
 				farnebackOpticalFlowDemo();
+				break;
+
+			case 81:
+				testFaceDetectAndDisplay_Images();
+				break;
+			case 82:
+				testFaceDetectAndDisplay_Video();
+				break;
+			case 83:
+				testFaceDetectAndDisplay_Video_LBP();
 				break;
 		}
 	}
