@@ -28,7 +28,7 @@ void init() {
     image_path = "/Users/vladbarto/Documents/FACULTATE/AN4/SEM1/IOC/Lab_IOC/Lab_8_Faces/Faces/Facesx12.bmp";
 }
 
-void faceDetectandDisplay_Images(const string& window_name, Mat frame, int minFaceSize, int minEyeSize, bool SIMPLIFIED) {
+Rect faceDetectandDisplay_Images(const string& window_name, Mat frame, int minFaceSize, int minEyeSize, bool SIMPLIFIED) {
     std::vector<Rect> faces;
     Mat frame_gray;
     cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
@@ -136,6 +136,8 @@ void faceDetectandDisplay_Images(const string& window_name, Mat frame, int minFa
 
     imshow( window_name, frame ); //-- Show what you got
     waitKey();
+
+    return faces[0];
 }
 
 void testFaceDetectAndDisplay_Images() {

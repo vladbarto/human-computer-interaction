@@ -9,6 +9,8 @@
 #include "Lab_6_Estimarea_fluxului_optic/lab6.h"
 #include "Lab_7_Estimarea_fluxului_optic_dens/lab7.h"
 #include "Lab_8_Faces/lab8.h"
+#include "Lab_9_Detectie_Faciala/lab9.h"
+#include "Lab_10_Detectia_de_persoane/lab10.h"
 
 using namespace std;
 using namespace cv;
@@ -113,8 +115,6 @@ void testOpenImagesFld()
 
 void nop() {;}
 
-
-
 int main()
 {
 	makeColorwheel(); // initaializes the colorwhel for the colorcode module
@@ -158,6 +158,10 @@ int main()
 		printf("81 - Lab 8 - Detectia fețelor pe imagini \n");
 		printf("82 - Lab 8 - Detectia fețelor pe video (haar) \n");
 		printf("83 - Lab 8 - Detectia fețelor pe video (lbp) \n");
+		printf("-------lab9-------\n");
+		printf("91 - Lab 9 - Validarea modificarilor pe detectia faciala (clipit) \n");
+		printf("-------lab10-------\n");
+		printf("101 - Lab 10 - Detectia persoanelor (full body) \n");
 		printf(" 0 - Exit\n\n");
 		printf("Option: ");
 		scanf("%d",&op);
@@ -246,6 +250,17 @@ int main()
 			case 83:
 				testFaceDetectAndDisplay_Video_LBP();
 				break;
+
+			case 91:
+				validareDetectie();
+				break;
+
+			case 101:
+				detectPeople();
+				break;
+
+			default:
+				nop();
 		}
 	}
 	while (op!=0);

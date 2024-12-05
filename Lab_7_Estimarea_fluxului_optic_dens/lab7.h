@@ -6,7 +6,7 @@
 #define LAB7_H
 
 #include "../common.h"
-#include "../functions.h"
+#include "../Functions.h"
 
 static int winSize_int;
 static double pyr_scale = 0.5;

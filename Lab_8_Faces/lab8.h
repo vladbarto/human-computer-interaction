@@ -20,8 +20,10 @@ static int minEyeSize = minFaceSize /5; // conform proprietatilor antropomorfice
 static int minNoseSize = minFaceSize / 5;
 static int minMouthSize = minFaceSize / 4;
 
+void init();
 void testFaceDetectAndDisplay_Images();
 void testFaceDetectAndDisplay_Video_Haar();
 void testFaceDetectAndDisplay_Video_LBP();
+Rect faceDetectandDisplay_Images(const string& window_name, Mat frame, int minFaceSize, int minEyeSize, bool SIMPLIFIED);
 
 #endif //LAB8_H
