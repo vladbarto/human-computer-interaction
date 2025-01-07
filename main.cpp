@@ -11,6 +11,7 @@
 #include "Lab_8_Faces/lab8.h"
 #include "Lab_9_Detectie_Faciala/lab9.h"
 #include "Lab_10_Detectia_de_persoane/lab10.h"
+#include "Lab_11/lab11.h"
 
 using namespace std;
 using namespace cv;
@@ -162,6 +163,8 @@ int main()
 		printf("91 - Lab 9 - Validarea modificarilor pe detectia faciala (clipit) \n");
 		printf("-------lab10-------\n");
 		printf("101 - Lab 10 - Detectia persoanelor (full body) \n");
+		printf("-------lab11-------\n");
+		printf("111 - Lab 11 -  \n");
 		printf(" 0 - Exit\n\n");
 		printf("Option: ");
 		scanf("%d",&op);
@@ -259,6 +262,9 @@ int main()
 				detectPeople();
 				break;
 
+			case 111:
+				testBodyDetectionHog();
+				break;
 			default:
 				nop();
 		}

@@ -86,7 +86,7 @@ void testBinarizareManualaPragUnic() {
 
 //---
 
-void binarizareGlobalaAutomata(const int hist[], const char *image_path) {
+int binarizareGlobalaAutomata(const int hist[], const char *image_path) {
     float epsilon = 0.3;
     int min = INT_MAX;
     int max = INT_MIN;
@@ -130,6 +130,7 @@ void binarizareGlobalaAutomata(const int hist[], const char *image_path) {
     } while(abs(T_nou - T) < epsilon);
 
     binarizareManualaPragUnic(T_nou, image_path);
+    return T_nou;
 }
 
 void testBinarizareGlobalaAutomata() {
@@ -168,4 +169,85 @@ void testMouseClick()
         // Wait until user press some key
         waitKey(0);
     }
+}
+
+
+
+
+
+int binarizareGlobalaAutomata2(const int hist[]) {
+    float epsilon = 0.3;
+    int min = INT_MAX;
+    int max = INT_MIN;
+    int minIntensity = 0, maxIntensity = 0;
+    for(int i = 0; i < 256; i++) // intensitatea minima si maxima din poza
+    {
+        if(hist[i] < min) {
+            min = hist[i];
+            minIntensity = i;
+        }
+        if(hist[i] > max) {
+            max = hist[i];
+            maxIntensity = i;
+        }
+    }
+
+    int T = (minIntensity+maxIntensity)/2;
+    int T_nou = T;
+    do {
+        T = T_nou;
+        int miu_g1 = 0;
+        int miu_g2 = 0;
+        int N1 = 0;
+        int N2 = 0;
+
+        for(int g = 0; g < T; g++) {
+            N1 += hist[g];
+            miu_g1 += g * hist[g];
+        }
+
+        for(int g = T; g < 256; g++) {
+            N2 += hist[g];
+            miu_g2 += g * hist[g];
+        }
+
+        miu_g1 /= N1;
+        miu_g2 /= N2;
+
+        T_nou = (miu_g1 + miu_g2)/2;
+
+    } while(abs(T_nou - T) < epsilon);
+
+    std::cout << "Threshold global determinat = " << T_nou << std::endl;
+    return T_nou;
+}
+
+Mat binarizareManualaPragUnic2(int threshold, const char *fname) {
+    std::cout<<"[prag] "<<threshold<< std::endl;
+
+    Mat rgb = imread(fname);
+    Mat hsv;
+    Mat channels[3];
+    cvtColor(rgb, hsv, COLOR_BGR2HSV);
+    split(hsv, channels);
+    // Componentele de culoare ale modelului HSV
+    Mat H = channels[0]*255/180;
+    // Mat S = channels[1];
+    // Mat V = channels[2];
+
+    Mat H_binar = H.clone();
+    for(int i = 0; i < H.rows; i++) {
+        for(int j = 0; j < H.cols; j++) {
+            if(H_binar.at<uchar>(i, j) < threshold) {
+                H_binar.at<uchar>(i, j) = WHITE;
+            }
+            else {
+                H_binar.at<uchar>(i, j) = BLACK;
+            }
+        }
+    }
+    // imshow("Canal H binarizat", H_binar);
+    // waitKey();
+
+    return H_binar;
 }

@@ -46,7 +46,9 @@ add_executable(main main.cpp
         Lab_9_Detectie_Faciala/lab9.h
         Lab_10_Detectia_de_persoane/lab10.cpp
         Lab_10_Detectia_de_persoane/lab10.h
-        L10/dummy.cpp)
+        L10/dummy.cpp
+        Lab_11/lab11.cpp
+        Lab_11/lab11.h)
 
 # Link OpenCV libraries and your new_target to main
 target_link_libraries(main ${OpenCV_LIBS} new_target)
